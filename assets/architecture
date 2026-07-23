@@ -9,3 +9,15 @@ Physical layout
 
 Everything runs as virtual machines on a single Windows host running VMware Workstation. The VMs are connected through VMware virtual networks (VMnets) that simulate real physical network segments.
 
+Virtual machines
+
+pfSense VM -> role: Firewall, gateway, and zone boundary enforcement
+
+Network adapters:
+Adapter 1: VMnet0 (Bridged) → WAN interface (em0) — gets IP from home router
+Adapter 2: VMnet1 (Host-only) → LAN interface (em1) — 192.168.X.X
+Adapter 3: VMnet2 (Host-only) → DMZ interface (em2) — 172.16.X.X
+
+Why pfSense sits here: pfSense is the routing and security boundary between all three zones. Every packet crossing zones passes through pfSense and is evaluated against its firewall rules. 
+This gives centralised traffic control and the ability to monitor inter-zone connectivity by checking whether pfSense can route between zones correctly.
+
