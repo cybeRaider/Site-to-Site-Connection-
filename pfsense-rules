@@ -1,0 +1,5 @@
+LAN rules 
+
+LAN-out — internet access: action is set to Pass, we specify both TCP/UDP protocols, for source we specify the whole LAN subnet - for destination we specify any and as for source + destination port we specify any	
+agent traffic to Zabbix: action is set to Pass, we specify TCP as protocol,	for source we specify the whole LAN subnet - for destination we specify the IP of zabbix which is	172.16.X.X	and for destination port we specify the 10050
+ping to Zabbix server: action is set to Pass, we specify the ICMP protocol, as source w especify the whole LAN subnet - for destination we specify the IP	of zabbix which is 172.16.X.X  and as for destination port we specify any
