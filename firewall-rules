@@ -6,7 +6,7 @@ ping to Zabbix server: action is set to Pass, we specify the ICMP protocol, as s
 
 - explanation:
 
-Without LAN-out rule, LAN devices have no outbound internet access. pfSense stateful tracking automatically allows return traffic without a separate WAN rule.
+Without the LAN-out rule, the LAN devices wont have outbound internet access. pfSense is stateful which means is automatically tracking and allows return traffic without a separate WAN rule.
 In agent traffic to zabbix rule the port 10050 is the Zabbix agent passive check port. Zabbix server connects to the agent on this port to pull metrics
 ICMP-zabbix allows the Linux VM to ping the Zabbix server. Required for ping-based monitoring and basic connectivity testing between zones
 
