@@ -39,7 +39,7 @@ Without this rule, DMZ traffic exits through WAN with a private source IP that t
 
 Port forward rules
 
-Pi agent traffic to Zabbix: for interface we use the WAN, for protocol we use	TCP, for destination we use the WAN address, for destination port we use the 10050, for redirect target we use the zabbix-server IP 172.16.10.15	and we specify the port of zabbix which is the 10050	
+Pi agent traffic to Zabbix: for incoming interface we use the WAN because it tells pfSense to listen for incoming packets trying to access our IP from the outside, for protocol we use	TCP, for destination we use the WAN address, for destination port we use the 10050, for redirect target we use the zabbix-server IP 172.16.10.15	that should receive the traffic and we specify the port of zabbix which is the 10050	
 
  - explanation:
 The Raspberry Pi on the home LAN needs to reach the Zabbix server on DMZ. The Pi can only address packets to IPs it knows about, it knows pfSense's WAN IP but has no knowledge of the private DMZ subnet. 
