@@ -21,3 +21,22 @@ Adapter 3: VMnet2 (Host-only) → DMZ interface (em2) — 172.16.X.X
 Why pfSense sits here: pfSense is the routing and security boundary between all three zones. Every packet crossing zones passes through pfSense and is evaluated against its firewall rules. 
 This gives centralised traffic control and the ability to monitor inter-zone connectivity by checking whether pfSense can route between zones correctly.
 
+Ubuntu DMZ Server (Zabbix server) -> role: Monitoring server — data collection, storage, alerting, web UI
+
+Network adapters:
+
+Adapter 1: VMnet2 (DMZ) — 172.16.10.15/24, gateway 172.16.10.1
+Adapter 2: VMnet8 (Management) — 192.168.149.10/24 (no gateway)
+
+Why Zabbix lives in DMZ: The monitoring server needs to reach every zone to collect data. From DMZ it can initiate connections to LAN hosts (agent polling), to pfSense (SNMP queries), and to WAN (internet health checks). It can also receive inbound connections from the Raspberry Pi via pfSense port forward.
+
+Placing it in LAN would mean it sits inside the zone it's supposed to monitor, which creates a blind spot — if something breaks LAN access, the monitoring server might be unreachable at the same time it needs to report the problem.
+
+The second adapter on VMnet8 provides a direct management path from the host machine that bypasses pfSense entirely. This is essential during lab configuration — when pfSense rules are being adjusted and might break connectivity, SSH access via VMnet8 still works.
+
+Software stack:
+
+Zabbix Server 7.0
+MariaDB 10.x (metrics database)
+Apache 2.4 (web frontend)
+Zabbix Agent (self-monitoring)
